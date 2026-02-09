@@ -1,0 +1,218 @@
+.contact-section {
+    padding: 100px 0 0;
+    background-color: var(--bg-light);
+}
+
+.contact-section__container {
+    padding-bottom: 80px;
+}
+
+.contact-section__header {
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-section__title {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--bg-dark);
+}
+
+.contact-section__title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-yellow);
+    margin: 16px auto 0;
+}
+
+.contact-section__subtitle {
+    font-size: 18px;
+    color: var(--text-gray);
+    line-height: 1.6;
+}
+
+.contact-section__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 80px;
+    align-items: start;
+}
+
+/* Left Column: Info */
+.contact-section__info h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    color: var(--bg-dark);
+}
+
+.contact-section__details {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 40px;
+}
+
+.contact-section__item {
+    display: flex;
+    gap: 20px;
+}
+
+.contact-section__icon-wrapper {
+    width: 48px;
+    height: 48px;
+    background-color: rgba(245, 166, 35, 0.1);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-yellow);
+    flex-shrink: 0;
+}
+
+.contact-section__label {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--bg-dark);
+    margin: 0 0 4px;
+}
+
+.contact-section__value {
+    color: var(--text-gray);
+    font-size: 16px;
+    line-height: 1.5;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a.contact-section__value:hover {
+    color: var(--primary-yellow);
+}
+
+.contact-section__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.btn--block {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Right Column: Form */
+.contact-section__form-wrapper {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.contact-section__form-header {
+    margin-bottom: 32px;
+}
+
+.contact-section__form-header h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--bg-dark);
+}
+
+.contact-section__form-header p {
+    color: var(--text-gray);
+    font-size: 14px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--bg-dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 16px;
+    transition: all 0.2s;
+    background-color: #f9fafb;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-yellow);
+    box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.1);
+    background-color: #fff;
+}
+
+.form-footer {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.form-note {
+    font-size: 14px;
+    color: var(--text-gray);
+}
+
+/* Map */
+.contact-section__map {
+    width: 100%;
+    filter: grayscale(100%);
+    transition: filter 0.3s;
+}
+
+.contact-section__map:hover {
+    filter: grayscale(0%);
+}
+
+@media (max-width: 1024px) {
+    .contact-section__grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-section__title {
+        font-size: 36px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-footer {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+}

@@ -1,0 +1,108 @@
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: var(--header-height);
+    overflow: hidden;
+}
+
+/* .hero__gradient removed - replaced by BackgroundBeamsWithCollision */
+
+.hero__container {
+    position: relative;
+    z-index: 1;
+    padding: 60px 24px;
+}
+
+.hero__content {
+    max-width: 700px;
+}
+
+.hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(245, 166, 35, 0.15);
+    border: 1px solid rgba(245, 166, 35, 0.3);
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary-yellow);
+    margin-bottom: 24px;
+    animation: fadeInUp 0.6s ease;
+}
+
+.hero__badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--primary-yellow);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.hero__title {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 600;
+    color: var(--text-white);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.6s ease 0.1s backwards;
+}
+
+.hero__description {
+    font-size: 18px;
+    color: var(--text-gray);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 560px;
+    animation: fadeInUp 0.6s ease 0.2s backwards;
+}
+
+.hero__buttons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 48px;
+    animation: fadeInUp 0.6s ease 0.3s backwards;
+}
+
+.hero__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeInUp 0.6s ease 0.4s backwards;
+}
+
+.hero__badge-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-gray-light);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .hero {
+        min-height: auto;
+        padding-top: calc(var(--header-height) + 40px);
+        padding-bottom: 60px;
+    }
+
+    .hero__gradient {
+        width: 100%;
+        top: 20%;
+    }
+
+    .hero__buttons {
+        flex-direction: column;
+    }
+
+    .hero__badges {
+        flex-direction: column;
+        gap: 16px;
+    }
+}

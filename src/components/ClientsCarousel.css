@@ -1,0 +1,41 @@
+.clients {
+    padding: 80px 0;
+    text-align: center;
+    background: var(--bg-white);
+}
+
+.clients__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.clients__label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--primary-yellow);
+    margin-bottom: 8px;
+}
+
+.clients__title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 48px;
+}
+
+.clients__link {
+    margin-top: 32px;
+    font-size: 14px;
+    color: var(--primary-yellow);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.clients__link:hover {
+    text-decoration: underline;
+}

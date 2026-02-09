@@ -1,0 +1,109 @@
+/* Header styles are now handled by Tailwind and the Navbar component */
+.header {
+    /* Kept for potential fallback layout needs, but primarily using fixed positioning from Navbar component */
+    width: 100%;
+    z-index: 1000;
+}
+
+.header--scrolled {
+    /* Logic moved to Navbar component */
+}
+
+.header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.header__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform var(--transition-fast);
+}
+
+.header__logo:hover {
+    transform: scale(1.02);
+}
+
+.header__logo-img {
+    height: 40px;
+    width: auto;
+    transition: height var(--transition-medium);
+}
+
+.header--scrolled .header__logo-img {
+    height: 32px;
+}
+
+.header__logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.header__logo-impact {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-white);
+    letter-spacing: 1px;
+}
+
+.header__logo-channel {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text-gray);
+    letter-spacing: 2px;
+}
+
+.header--scrolled .header__logo-impact {
+    font-size: 12px;
+}
+
+.header--scrolled .header__logo-channel {
+    font-size: 8px;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.header__nav-link {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-gray-light);
+    transition: color var(--transition-fast);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.header__nav-link:hover {
+    color: var(--text-white);
+}
+
+.header__cta {
+    padding: 10px 20px;
+    font-size: 14px;
+    transition: all var(--transition-medium);
+}
+
+.header--scrolled .header__cta {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .header__nav {
+        display: none;
+    }
+
+    .header__cta {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}
