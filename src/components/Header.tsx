@@ -45,6 +45,12 @@ const Header = () => {
       return;
     }
 
+    if (id === 'servicios') {
+      navigate('/services');
+      window.scrollTo(0, 0);
+      return;
+    }
+
     if (location.pathname !== '/') {
       navigate('/');
       // Wait for navigation then scroll
@@ -70,7 +76,6 @@ const Header = () => {
     { name: "Inicio", link: "#", onClick: () => handleNavigation('inicio') },
     { name: "Servicios", link: "#", onClick: () => handleNavigation('servicios') },
     { name: "Know-How", link: "#", onClick: () => handleNavigation('know-how') },
-    { name: "Proceso", link: "#", onClick: () => handleNavigation('proceso') },
     { name: "Contacto", link: "#", onClick: () => handleNavigation('contacto') },
   ];
 

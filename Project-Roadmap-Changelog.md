@@ -8,6 +8,8 @@
 - **Botón Flotante de Acción (FAB):** Botón de contacto rediseñado con animación de "respiración" sutil y menú desplegable (Llamar / Presupuesto) con transiciones suaves y fondo atenuado.
 - **Hero Interactivo (Micro-UX):** Implementada física de colisiones en los haces de luz del fondo. Los "meteoritos" ahora interactúan con el botón principal, disolviéndose al impacto y generando una micro-reacción luminosa ultra-sutil en el botón.
 - **Página Know-How (`/know-how`):** Nueva página dedicada. Incluye un **Timeline interactivo** (Aceternity UI) para visualizar el proceso de trabajo, además de áreas de expertise y diferenciadores animados.
+- **Página Servicios (`/services`):** Nueva página "Work in Progress" diseñada para indicar que la sección detallada está en desarrollo, manteniendo la estética premium y permitiendo navegación fluida.
+- **Navegación Simplificada:** Eliminado el enlace "Proceso" de la barra de navegación y el footer para limpiar la experiencia de usuario de cara a la demo.
 
 ## [1.2.0] - 2026-02-10
 ### Añadido (Added)
