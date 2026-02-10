@@ -1,5 +1,16 @@
 # ⚡ IMPACT CHANNEL | Project Roadmap & Changelog
 
+## [1.4.0] - 2026-02-10
+### Añadido (Added)
+- **Sistema de Acceso (Gatekeeper):** Implementación de una pantalla de login (`/login`) para proteger la demo. Clave de acceso única, persistencia en sesión y redirección automática.
+- **Diseño de Login Inmersivo:** Fondo con efectos de colisión de meteoritos, input con efecto *glow* naranja y animaciones de error (shake).
+- **Página de Servicios (Nota de Desarrollo):** Nueva vista temporal para la sección de servicios con un mensaje personal del diseñador, integrada en el sistema de navegación.
+- **Optimización Integral:** Test de velocidad y rendimiento realizado. Bundle optimizado para carga instantánea sin necesidad de loaders.
+
+### Corregido (Fixed)
+- **Visual Bug en Footer:** Corregido un error de renderizado en la etiqueta de "Teléfono" y unificado el estilo de etiquetas de contacto a mayúsculas para mayor consistencia.
+- **Refinamiento en Contacto:** Añadido separador visual minimalista ("Encuéntranos") y mejorado el espaciado (aire) entre el formulario y el mapa para una mejor jerarquía visual.
+
 ## [1.3.0] - 2026-02-10
 ### Añadido (Added)
 - **Rediseño Premium de la Página de Contacto:** Nueva interfaz visual con animaciones de entrada (`fade-in`, `stagger`), tipografía de gran formato y diseño limpio.

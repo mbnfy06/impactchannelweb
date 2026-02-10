@@ -93,17 +93,17 @@ const Footer = () => {
                             <h4 className="footer__column-title">Contacto</h4>
                             <div className="footer__contact-info">
                                 <div className="footer__contact-item">
-                                    <span className="footer__contact-label">Dirección</span>
+                                    <span className="footer__contact-label">DIRECCIÓN</span>
                                     Av. Fuente Nueva, 14, Nave 19A<br />
                                     28703 San Sebastián de los Reyes<br />
                                     Madrid, España
                                 </div>
                                 <div className="footer__contact-item">
-                                    <span className="footer__contact-label">Teléfono</span>
+                                    <span className="footer__contact-label">TELÉFONO</span>
                                     <a href="tel:+34918053400" className="footer__link">(+34) 91 805 34 00</a>
                                 </div>
                                 <div className="footer__contact-item">
-                                    <span className="footer__contact-label">Email</span>
+                                    <span className="footer__contact-label">EMAIL</span>
                                     <a href="mailto:info@impactchannel.es" className="footer__link">info@impactchannel.es</a>
                                 </div>
                             </div>

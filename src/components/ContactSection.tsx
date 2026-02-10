@@ -291,8 +291,17 @@ const ContactSection = () => {
                 </motion.div>
             </div>
 
+            {/* Separator and Map Label */}
+            <div className="container mx-auto px-6 mt-32 mb-12">
+                <div className="flex items-center space-x-4 opacity-30">
+                    <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-neutral-500"></div>
+                    <span className="text-[10px] font-bold tracking-[0.2em] text-neutral-500 uppercase">Encuéntranos</span>
+                    <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-neutral-500"></div>
+                </div>
+            </div>
+
             {/* Map Section - Contained and Minimal */}
-            <div className="container mx-auto px-6 mt-24">
+            <div className="container mx-auto px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
