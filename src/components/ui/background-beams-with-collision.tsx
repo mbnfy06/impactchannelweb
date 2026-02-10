@@ -6,9 +6,13 @@ import React, { useRef, useState, useEffect } from "react";
 export const BackgroundBeamsWithCollision = ({
     children,
     className,
+    interactiveRef,
+    onCollision,
 }: {
     children: React.ReactNode;
     className?: string;
+    interactiveRef?: React.RefObject<HTMLElement | null>;
+    onCollision?: () => void;
 }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const parentRef = useRef<HTMLDivElement>(null);
@@ -81,6 +85,8 @@ export const BackgroundBeamsWithCollision = ({
                     beamOptions={beam}
                     containerRef={containerRef}
                     parentRef={parentRef}
+                    interactiveRef={interactiveRef}
+                    onCollision={onCollision}
                 />
             ))}
 
@@ -102,6 +108,8 @@ const CollisionMechanism = React.forwardRef<
     {
         containerRef: React.RefObject<HTMLDivElement | null>;
         parentRef: React.RefObject<HTMLDivElement | null>;
+        interactiveRef?: React.RefObject<HTMLElement | null>;
+        onCollision?: () => void;
         beamOptions?: {
             initialX?: number;
             translateX?: number;
@@ -114,7 +122,7 @@ const CollisionMechanism = React.forwardRef<
             repeatDelay?: number;
         };
     }
->(({ parentRef, containerRef, beamOptions = {} }, _ref) => {
+>(({ parentRef, containerRef, interactiveRef, onCollision, beamOptions = {} }, _ref) => {
     const beamRef = useRef<HTMLDivElement>(null);
     const [collision, setCollision] = useState<{
         detected: boolean;
@@ -134,14 +142,37 @@ const CollisionMechanism = React.forwardRef<
                 parentRef.current &&
                 !cycleCollisionDetected
             ) {
-                if (beamRef.current) {
-                    const beamRect = beamRef.current.getBoundingClientRect();
-                    const containerRect = containerRef.current.getBoundingClientRect();
-                    const parentRect = parentRef.current.getBoundingClientRect();
+                const beamRect = beamRef.current.getBoundingClientRect();
+                const containerRect = containerRef.current.getBoundingClientRect();
+                const parentRect = parentRef.current.getBoundingClientRect();
 
-                    if (beamRect.bottom >= containerRect.top) {
-                        const relativeX =
-                            beamRect.left - parentRect.left + beamRect.width / 2;
+                // Check collision with floor (original logic)
+                if (beamRect.bottom >= containerRect.top) {
+                    const relativeX =
+                        beamRect.left - parentRect.left + beamRect.width / 2;
+                    const relativeY = beamRect.bottom - parentRect.top;
+
+                    setCollision({
+                        detected: true,
+                        coordinates: {
+                            x: relativeX,
+                            y: relativeY,
+                        },
+                    });
+                    setCycleCollisionDetected(true);
+                    return;
+                }
+
+                // Check collision with interactive element (new logic)
+                if (interactiveRef?.current) {
+                    const interactiveRect = interactiveRef.current.getBoundingClientRect();
+                    if (
+                        beamRect.bottom >= interactiveRect.top &&
+                        beamRect.top <= interactiveRect.bottom &&
+                        beamRect.right >= interactiveRect.left &&
+                        beamRect.left <= interactiveRect.right
+                    ) {
+                        const relativeX = beamRect.left - parentRect.left + beamRect.width / 2;
                         const relativeY = beamRect.bottom - parentRect.top;
 
                         setCollision({
@@ -152,6 +183,7 @@ const CollisionMechanism = React.forwardRef<
                             },
                         });
                         setCycleCollisionDetected(true);
+                        if (onCollision) onCollision();
                     }
                 }
             }
@@ -160,7 +192,7 @@ const CollisionMechanism = React.forwardRef<
         const animationInterval = setInterval(checkCollision, 50);
 
         return () => clearInterval(animationInterval);
-    }, [cycleCollisionDetected, containerRef]);
+    }, [cycleCollisionDetected, containerRef, interactiveRef, onCollision]);
 
     useEffect(() => {
         if (collision.detected && collision.coordinates) {
@@ -203,7 +235,8 @@ const CollisionMechanism = React.forwardRef<
                 }}
                 className={cn(
                     "absolute left-0 top-20 m-auto h-14 w-px rounded-full bg-gradient-to-t from-yellow-500 via-orange-500 to-transparent",
-                    beamOptions.className
+                    beamOptions.className,
+                    (collision.detected && "opacity-0 transition-opacity duration-0")
                 )}
             />
             <AnimatePresence>

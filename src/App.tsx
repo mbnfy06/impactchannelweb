@@ -1,30 +1,28 @@
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import ClientsCarousel from './components/ClientsCarousel';
-import ServicesCards from './components/ServicesCards';
-import ProcessSection from './components/ProcessSection';
-import ContactSection from './components/ContactSection';
-import FAQ from './components/FAQ';
-import FloatingButton from './components/FloatingButton';
-
 import Footer from './components/Footer';
+import FloatingButton from './components/FloatingButton';
+import HomePage from './pages/Home';
+import Contact from './pages/Contact';
+import KnowHowPage from './pages/KnowHow';
+import './App.css';
 
 function App() {
   return (
-    <div className="app">
-      <Header />
-      <main>
-        <Hero />
-        <ClientsCarousel />
-        <ServicesCards />
-        <ProcessSection />
-        <ContactSection />
-        <FAQ />
-      </main>
-      <Footer />
-      <FloatingButton />
-    </div>
+    <Router>
+      <div className="app">
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/know-how" element={<KnowHowPage />} />
+          </Routes>
+        </main>
+        <Footer />
+        <FloatingButton />
+      </div>
+    </Router>
   );
 }
 

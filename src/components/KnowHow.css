@@ -1,0 +1,273 @@
+.knowhow {
+    padding: 120px 0 100px;
+    background: var(--bg-dark);
+    color: var(--text-white);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle background accent */
+.knowhow::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(245, 166, 35, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.knowhow__container {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== Header ===== */
+.knowhow__header {
+    margin-bottom: 80px;
+}
+
+.knowhow__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--primary-yellow);
+    margin-bottom: 20px;
+}
+
+.knowhow__label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--primary-yellow);
+}
+
+.knowhow__title {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 600;
+    color: var(--text-white);
+    line-height: 1.15;
+    max-width: 600px;
+}
+
+/* ===== Stats Row ===== */
+.knowhow__stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 80px;
+    padding-bottom: 80px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.knowhow__stat {
+    text-align: left;
+}
+
+.knowhow__stat-number {
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 700;
+    color: var(--primary-yellow);
+    line-height: 1;
+    margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+}
+
+.knowhow__stat-label {
+    font-size: 14px;
+    color: var(--text-gray);
+    line-height: 1.4;
+}
+
+/* ===== Expertise Grid ===== */
+.knowhow__expertise {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 80px;
+}
+
+.knowhow__expertise-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 40px 36px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.knowhow__expertise-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-yellow), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.knowhow__expertise-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(245, 166, 35, 0.15);
+    transform: translateY(-4px);
+}
+
+.knowhow__expertise-card:hover::before {
+    opacity: 1;
+}
+
+.knowhow__expertise-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(245, 166, 35, 0.1);
+    border-radius: 12px;
+    color: var(--primary-yellow);
+    margin-bottom: 24px;
+}
+
+.knowhow__expertise-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-white);
+    margin-bottom: 12px;
+}
+
+.knowhow__expertise-description {
+    font-size: 14px;
+    color: var(--text-gray);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.knowhow__expertise-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.knowhow__expertise-tag {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-gray-light);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ===== Differentiators ===== */
+.knowhow__differentiators {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+}
+
+.knowhow__diff-header h3 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-white);
+    margin-bottom: 16px;
+}
+
+.knowhow__diff-header p {
+    font-size: 15px;
+    color: var(--text-gray);
+    line-height: 1.7;
+    max-width: 420px;
+}
+
+.knowhow__diff-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.knowhow__diff-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.knowhow__diff-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(245, 166, 35, 0.1);
+}
+
+.knowhow__diff-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(245, 166, 35, 0.1);
+    border-radius: 8px;
+    color: var(--primary-yellow);
+}
+
+.knowhow__diff-content h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-white);
+    margin-bottom: 4px;
+}
+
+.knowhow__diff-content p {
+    font-size: 13px;
+    color: var(--text-gray);
+    line-height: 1.6;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+    .knowhow__stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+
+    .knowhow__expertise {
+        grid-template-columns: 1fr;
+    }
+
+    .knowhow__differentiators {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 640px) {
+    .knowhow {
+        padding: 80px 0 60px;
+    }
+
+    .knowhow__stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .knowhow__header {
+        margin-bottom: 48px;
+    }
+
+    .knowhow__expertise-card {
+        padding: 28px 24px;
+    }
+}

@@ -1,7 +1,11 @@
+import { useRef, useState } from 'react';
 import './Hero.css';
 import { BackgroundBeamsWithCollision } from './ui/background-beams-with-collision';
 
 const Hero = () => {
+    const [isShockwave, setIsShockwave] = useState(false);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id);
         if (element) {
@@ -9,9 +13,18 @@ const Hero = () => {
         }
     };
 
+    const handleCollision = () => {
+        setIsShockwave(true);
+        setTimeout(() => setIsShockwave(false), 500); // Flash effect
+    };
+
     return (
         <section id="inicio" className="hero section-dark">
-            <BackgroundBeamsWithCollision className="absolute inset-0 z-0">
+            <BackgroundBeamsWithCollision
+                className="absolute inset-0 z-0"
+                interactiveRef={buttonRef}
+                onCollision={handleCollision}
+            >
                 {/* Empty children for beams, content is separate or we can wrap content if we want beams behind */}
                 <div className="hidden"></div>
             </BackgroundBeamsWithCollision>
@@ -32,7 +45,11 @@ const Hero = () => {
                     </p>
 
                     <div className="hero__buttons">
-                        <button onClick={() => scrollToSection('contacto')} className="btn btn-primary">
+                        <button
+                            ref={buttonRef}
+                            onClick={() => scrollToSection('contacto')}
+                            className={`btn btn-primary transition-all duration-300 relative overflow-hidden ${isShockwave ? 'shadow-[0_0_15px_rgba(250,204,21,0.2)] z-50' : ''}`}
+                        >
                             Pedir Presupuesto
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

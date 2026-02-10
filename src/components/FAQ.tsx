@@ -40,7 +40,7 @@ const FAQ = () => {
     };
 
     return (
-        <section id="know-how" className="faq section-dark">
+        <section id="faq" className="faq section-dark">
             <div className="faq__container container">
                 <div className="faq__header">
                     <h2 className="faq__title">

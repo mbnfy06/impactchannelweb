@@ -114,7 +114,7 @@ export const Navbar = ({ children, className }: NavbarProps) => {
     return (
         <motion.div
             ref={ref}
-            className={cn("fixed inset-x-0 top-0 z-50 w-full pt-4", className)}
+            className={cn("fixed inset-x-0 top-0 z-50 w-full pt-4 transition-all duration-700 ease-in-out", className)}
         >
             {React.Children.map(children, (child) =>
                 React.isValidElement(child)
@@ -145,7 +145,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
             initial={{ width: "100%", y: 0 }}
             transition={{
                 ease: "easeInOut",
-                duration: 0.4, // Fluid transition
+                duration: 0.8, // Fluid transition
             }}
             style={{
                 minWidth: visible ? "900px" : "100%",

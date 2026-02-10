@@ -84,7 +84,7 @@ const Footer = () => {
                             <ul className="footer__links">
                                 <li><button onClick={() => scrollToSection('inicio')} className="footer__link">Inicio</button></li>
                                 <li><button onClick={() => scrollToSection('servicios')} className="footer__link">Servicios</button></li>
-                                <li><button onClick={() => scrollToSection('know-how')} className="footer__link">Know-How</button></li>
+                                <li><button onClick={() => { window.location.href = '/know-how'; }} className="footer__link">Know-How</button></li>
                                 <li><button onClick={() => scrollToSection('proceso')} className="footer__link">Proceso</button></li>
                                 <li><button onClick={() => scrollToSection('contacto')} className="footer__link">Contacto</button></li>
                             </ul>

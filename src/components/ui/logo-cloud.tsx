@@ -24,7 +24,7 @@ export function LogoCloud({ className, logos, ...props }: LogoCloudProps) {
             )}
         >
             {/* Increased height and removed mask for debugging visibility */}
-            <InfiniteSlider gap={42} reverse speed={50} speedOnHover={25} className="h-24 py-2">
+            <InfiniteSlider gap={42} reverse speed={25} className="h-24 py-2">
                 {logos.map((logo, idx) => (
                     <img
                         // Provide key with index to ensure uniqueness if logos are duplicated
