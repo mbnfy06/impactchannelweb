@@ -1,138 +1,180 @@
-import { useRef, useState } from 'react';
-import './ServicesCards.css';
+'use client';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { BentoGrid, BentoGridItem } from './ui/bento-grid';
+import {
+    Printer,
+    Store,
+    BarChart3,
+    MonitorPlay,
+    Lightbulb,
+    Headset
+} from 'lucide-react';
 
-interface Service {
-    id: string;
-    icon: React.ReactNode;
-    title: string;
-    description: string;
-    features: string[];
-}
+const Services = () => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-const services: Service[] = [
-    {
-        id: 'impresion',
-        icon: (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 9V2H18V9M6 18H4C3.46957 18 2.96086 17.7893 2.58579 17.4142C2.21071 17.0391 2 16.5304 2 16V11C2 10.4696 2.21071 9.96086 2.58579 9.58579C2.96086 9.21071 3.46957 9 4 9H20C20.5304 9 21.0391 9.21071 21.4142 9.58579C21.7893 9.96086 22 10.4696 22 11V16C22 16.5304 21.7893 17.0391 21.4142 17.4142C21.0391 17.7893 20.5304 18 20 18H18M6 14H18V22H6V14Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-        ),
-        title: 'Impresión Digital',
-        description: 'Imprimimos absolutamente todo: gran formato, vinilos, catálogos, textil y más. Calidad profesional con plazos ágiles.',
-        features: ['Gran formato y rotulación', 'Offset y papelería', 'Textil personalizado'],
-    },
-    {
-        id: 'promotional-gifts',
-        icon: (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 12V22H4V12M22 7H2V12H22V7ZM12 22V7M12 7H7.5C6.83696 7 6.20107 6.73661 5.73223 6.26777C5.26339 5.79893 5 5.16304 5 4.5C5 3.83696 5.26339 3.20107 5.73223 2.73223C6.20107 2.26339 6.83696 2 7.5 2C11 2 12 7 12 7ZM12 7H16.5C17.163 7 17.7989 6.73661 18.2678 6.26777C18.7366 5.79893 19 5.16304 19 4.5C19 3.83696 18.7366 3.20107 18.2678 2.73223C17.7989 2.26339 17.163 2 16.5 2C13 2 12 7 12 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-        ),
-        title: 'Regalo Publicitario',
-        description: 'Gestión integral de merchandising: búsqueda, diseño, personalización y logística. Oficinas en España y China.',
-        features: ['Catálogo extenso', 'Personalización total', 'Importación directa'],
-    },
-    {
-        id: 'trade',
-        icon: (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M9 22V12H15V22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-        ),
-        title: 'Trade Marketing',
-        description: 'Especialistas en punto de venta. Optimizamos la visibilidad y rentabilidad de tu producto en el retail.',
-        features: ['Activación PDV', 'Gestión de categorías', 'Shopper marketing'],
-    },
-    {
-        id: 'digital-signage',
-        icon: (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 3H4C2.89543 3 2 3.89543 2 5V15C2 16.1046 2.89543 17 4 17H20C21.1046 17 22 16.1046 22 15V5C22 3.89543 21.1046 3 20 3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M8 21H16M12 17V21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-        ),
-        title: 'Digital Signage',
-        description: 'Pantallas y contenidos digitales para comunicar en el punto de venta. Hardware, software y gestión de contenidos.',
-        features: ['Pantallas LED/LCD', 'Gestión de contenidos', 'Soporte técnico'],
-    },
-];
-
-const ServicesCards = () => {
-    const [activeCard, setActiveCard] = useState<number | null>(null);
-    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
-        const card = cardRefs.current[index];
-        if (!card) return;
-
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-    };
-
-    const handleMouseLeave = (index: number) => {
-        const card = cardRefs.current[index];
-        if (card) {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        }
-        setActiveCard(null);
-    };
+    const items = [
+        {
+            title: "Producción Gráfica & Gran Formato",
+            description: "Impresión de alto impacto. Gran formato, rotulación y materiales PLV sostenibles.",
+            header: <SkeletonOne />,
+            icon: <Printer className="h-6 w-6 text-primary group-hover/bento:text-yellow-400 transition-colors" />,
+            className: "md:col-span-2",
+        },
+        {
+            title: "Merchandising Estratégico",
+            description: "Objetos promocionales que cuentan historias. Diseño y producción.",
+            header: <SkeletonTwo />,
+            icon: <Store className="h-6 w-6 text-primary group-hover/bento:text-yellow-400 transition-colors" />,
+            className: "md:col-span-1",
+        },
+        {
+            title: "Consultoría de Punto de Venta",
+            description: "Auditamos y optimizamos cada metro cuadrado para vender más.",
+            header: <SkeletonThree />,
+            icon: <BarChart3 className="h-6 w-6 text-primary group-hover/bento:text-yellow-400 transition-colors" />,
+            className: "md:col-span-1",
+        },
+        {
+            title: "Digital Signage 360º",
+            description: "Pantallas LED y gestión de contenidos dinámica para retail.",
+            header: <SkeletonFour />,
+            icon: <MonitorPlay className="h-6 w-6 text-primary group-hover/bento:text-yellow-400 transition-colors" />,
+            className: "md:col-span-2",
+        },
+        {
+            title: "Innovación & Proyectos Ad-hoc",
+            description: "Ingeniería creativa. Mobiliario comercial y experiencias a medida.",
+            header: <SkeletonFive />,
+            icon: <Lightbulb className="h-6 w-6 text-primary group-hover/bento:text-yellow-400 transition-colors" />,
+            className: "md:col-span-1",
+        },
+        {
+            title: "Customer Services",
+            description: "Soporte dedicado 24/7 y gestión logística integral.",
+            header: <SkeletonSix />,
+            icon: <Headset className="h-6 w-6 text-primary group-hover/bento:text-yellow-400 transition-colors" />,
+            className: "md:col-span-1 md:col-start-3",
+        },
+    ];
 
     return (
-        <section id="servicios" className="services section-light">
-            <div className="services__container container">
-                <h2 className="services__title">Servicios integrales de marketing</h2>
-                <p className="services__subtitle">
-                    Desde la idea hasta la ejecución. Cubrimos todas las necesidades de tu marca en el punto de venta y más allá.
-                </p>
+        <section id="servicios" className="py-24 bg-background relative overflow-hidden">
+            {/* Ambient Yellow Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl pointer-events-none -z-10" />
 
-                <div className="services__grid">
-                    {services.map((service, index) => (
-                        <div
-                            key={service.id}
-                            ref={(el) => { cardRefs.current[index] = el; }}
-                            className={`services__card ${activeCard === index ? 'services__card--hover' : ''}`}
-                            onMouseMove={(e) => handleMouseMove(e, index)}
-                            onMouseEnter={() => setActiveCard(index)}
-                            onMouseLeave={() => handleMouseLeave(index)}
-                        >
-                            <div className="services__card-glow"></div>
-                            <div className="services__card-content">
-                                <div className="services__icon">
-                                    {service.icon}
-                                </div>
-                                <h3 className="services__card-title">{service.title}</h3>
-                                <p className="services__card-description">{service.description}</p>
+            <div className="container relative z-10">
+                <div className="max-w-2xl mx-auto text-center mb-16">
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={isInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.5 }}
+                        className="text-3xl md:text-5xl font-bold mb-4 tracking-tight"
+                    >
+                        Soluciones <span className="text-primary drop-shadow-[0_0_15px_rgba(245,166,35,0.4)]">Integrales</span>
+                    </motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={isInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                        className="text-muted-foreground text-lg"
+                    >
+                        Combinamos creatividad, tecnología y producción para transformar tu presencia en el punto de venta.
+                    </motion.p>
+                </div>
 
-                                <ul className="services__features">
-                                    {service.features.map((feature, i) => (
-                                        <li key={i} className="services__feature">
-                                            <span className="services__feature-bullet">+</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <a href="#" className="btn btn-link services__link">
-                                    Ver más
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    ))}
+                <div ref={ref}>
+                    <BentoGrid className="max-w-6xl mx-auto">
+                        {items.map((item, i) => (
+                            <BentoGridItem
+                                key={i}
+                                title={item.title}
+                                description={item.description}
+                                header={item.header}
+                                icon={item.icon}
+                                className={item.className}
+                            />
+                        ))}
+                    </BentoGrid>
                 </div>
             </div>
         </section>
     );
 };
 
-export default ServicesCards;
+// --- Visual Skeletons with Yellow Accents ---
+
+const SkeletonOne = () => (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-100 to-white dark:from-neutral-900 dark:to-neutral-900 border border-neutral-200 dark:border-white/5 relative overflow-hidden group">
+        <div className="absolute right-0 top-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-primary/20"></div>
+        <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative w-3/4 h-3/4 border-2 border-dashed border-primary/30 rounded-lg flex items-center justify-center">
+                <div className="text-primary/20 font-black text-6xl tracking-tighter">CMYK</div>
+            </div>
+        </div>
+    </div>
+);
+
+const SkeletonTwo = () => (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-900 relative overflow-hidden group border border-neutral-200 dark:border-white/5">
+        <div className="absolute inset-0 flex items-center justify-center gap-2">
+            <div className="w-8 h-16 bg-primary/20 rounded-md group-hover:h-20 transition-all duration-300"></div>
+            <div className="w-8 h-12 bg-primary/40 rounded-md group-hover:h-16 transition-all duration-300 delay-75"></div>
+            <div className="w-8 h-20 bg-primary/60 rounded-md group-hover:h-24 transition-all duration-300 delay-150"></div>
+        </div>
+    </div>
+);
+
+const SkeletonThree = () => (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-900 flex flex-col justify-end p-4 group border border-neutral-200 dark:border-white/5 overflow-hidden">
+        <div className="absolute top-4 right-4 text-primary font-bold text-xs uppercase tracking-widest opacity-50">Analytics</div>
+        <div className="space-y-2">
+            <div className="w-full h-2 bg-neutral-200 dark:bg-neutral-800 rounded-full overflow-hidden">
+                <div className="h-full bg-primary w-[70%] group-hover:w-[85%] transition-all duration-500"></div>
+            </div>
+            <div className="w-full h-2 bg-neutral-200 dark:bg-neutral-800 rounded-full overflow-hidden">
+                <div className="h-full bg-primary/60 w-[50%] group-hover:w-[65%] transition-all duration-500 delay-100"></div>
+            </div>
+        </div>
+    </div>
+);
+
+const SkeletonFour = () => (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-black relative overflow-hidden group border border-neutral-800">
+        <div className="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black to-transparent z-10"></div>
+        <div className="absolute inset-0 flex items-center justify-center">
+            {/* Screen Glitch Effect Simulation */}
+            <div className="w-[90%] h-[80%] bg-neutral-900 rounded border border-neutral-800 overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent w-[200%] h-full animate-shine opacity-50"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary font-mono text-xl md:text-2xl font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    DIGITAL<br />IMPACT
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+const SkeletonFive = () => (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-neutral-100 dark:bg-neutral-900 relative overflow-hidden group border border-neutral-200 dark:border-white/5">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="w-16 h-16 rounded-full border border-primary/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-10 h-10 rounded-full bg-primary/20 blur-md group-hover:bg-primary/40 transition-colors"></div>
+            </div>
+        </div>
+        <div className="absolute bottom-2 right-2 text-[10px] text-primary/60 font-mono">R&D LAB</div>
+    </div>
+);
+
+const SkeletonSix = () => (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-primary/10 to-transparent p-4 flex items-center justify-center relative overflow-hidden border border-primary/20 group">
+        <div className="relative z-10 flex flex-col items-center">
+            <div className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors">24/7</div>
+            <div className="text-[10px] uppercase tracking-wider text-primary font-bold mt-1">Soporte</div>
+        </div>
+        <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-primary/20 rounded-full blur-xl group-hover:bg-primary/30 transition-all"></div>
+    </div>
+);
+
+export default Services;

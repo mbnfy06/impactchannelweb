@@ -6,7 +6,7 @@ import {
     useScroll,
     useMotionValueEvent,
 } from "framer-motion";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 
 interface NavbarProps {
@@ -30,8 +30,6 @@ interface NavItemsProps {
     onItemClick?: () => void;
     visible?: boolean; // Received from NavBody
 }
-
-// ... MobileNavProps ...
 
 export const NavItems = ({ items, className, onItemClick, visible }: NavItemsProps) => {
     const [hovered, setHovered] = useState<number | null>(null);
@@ -150,12 +148,10 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
             style={{
                 minWidth: visible ? "900px" : "100%",
                 // @ts-ignore
-                "--nav-text": visible ? "black" : "#e5e7eb", // Passing css var for text color (whiteish initially for dark bg compatibility if needed, or keeping zinc-700)
-                // Wait, the user said "texto negro". If it was white before? Hmmm.
-                // Let's assume on scroll (visible) it MUST be black.
+                "--nav-text": visible ? "black" : "#e5e7eb",
             }}
             className={cn(
-                "relative z-[60] mx-auto hidden w-full flex-row items-center justify-between self-start lg:flex", // removed default text color classes to rely on children or variables if we go that route
+                "relative z-[60] mx-auto hidden w-full flex-row items-center justify-between self-start lg:flex",
                 visible ? "max-w-7xl" : "max-w-full container",
                 className,
             )}
@@ -168,8 +164,6 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         </motion.div>
     );
 };
-
-
 
 export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
     return (
@@ -208,7 +202,7 @@ export const MobileNavHeader = ({
     return (
         <div
             className={cn(
-                "flex w-full flex-row items-center justify-between",
+                "flex w-full flex-row items-center justify-between relative z-[80]",
                 className,
             )}
         >
@@ -221,21 +215,38 @@ export const MobileNavMenu = ({
     children,
     className,
     isOpen,
+    onClose,
 }: MobileNavMenuProps) => {
     return (
         <AnimatePresence>
             {isOpen && (
-                <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className={cn(
-                        "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white px-4 py-8 shadow-xl dark:bg-neutral-950 overflow-hidden",
-                        className,
-                    )}
-                >
-                    {children}
-                </motion.div>
+                <>
+                    {/* Backdrop */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={onClose} // Close on backdrop click
+                        className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm lg:hidden"
+                    />
+
+                    {/* Bottom Sheet Panel */}
+                    <motion.div
+                        initial={{ y: "100%" }}
+                        animate={{ y: 0 }}
+                        exit={{ y: "100%" }}
+                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                        className={cn(
+                            "fixed bottom-0 inset-x-0 z-[70] flex flex-col gap-2 rounded-t-[20px] bg-background border-t border-white/10 p-6 shadow-2xl lg:hidden max-h-[85vh] overflow-y-auto",
+                            className,
+                        )}
+                    >
+                        {/* Drag Handle Indicator */}
+                        <div className="w-12 h-1.5 bg-neutral-300 dark:bg-neutral-700 rounded-full mx-auto mb-6" />
+
+                        {children}
+                    </motion.div>
+                </>
             )}
         </AnimatePresence>
     );

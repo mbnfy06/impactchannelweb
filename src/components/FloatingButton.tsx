@@ -1,15 +1,16 @@
+'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, usePathname } from 'next/navigation';
 
 const FloatingButton = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const navigate = useNavigate();
-    const location = useLocation();
+    const router = useRouter();
+    const pathname = usePathname();
 
     const handleBudget = () => {
-        if (location.pathname !== '/contact') {
-            navigate('/contact');
+        if (pathname !== '/contact') {
+            router.push('/contact');
         } else {
             const element = document.getElementById('contacto');
             if (element) {

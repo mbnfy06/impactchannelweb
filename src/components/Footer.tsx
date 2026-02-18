@@ -1,7 +1,9 @@
+'use client';
 import { useState } from 'react';
-import './Footer.css';
-import logoFull from '../assets/logo-full.png';
+import Image from 'next/image';
 import LegalModal from './LegalModal';
+import { siteConfig } from '@/config/site';
+import { Mail, MapPin, Phone } from 'lucide-react';
 
 const Footer = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -27,7 +29,7 @@ const Footer = () => {
                         <p><strong>2. Usuarios</strong></p>
                         <p>El acceso y/o uso de este portal de Impact Channel atribuye la condición de USUARIO, que acepta, desde dicho acceso y/o uso, las Condiciones Generales de Uso aquí reflejadas.</p>
                         <p><strong>3. Uso del Portal</strong></p>
-                        <p>El sitio web proporciona el acceso a multitud de informaciones, servicios, programas o datos (en adelante, "los contenidos") en Internet pertenecientes a Impact Channel o a sus licenciantes a los que el USUARIO pueda tener acceso.</p>
+                        <p>El sitio web proporciona el acceso a multitud de informaciones, servicios, programas o datos (en adelante, &quot;los contenidos&quot;) en Internet pertenecientes a Impact Channel o a sus licenciantes a los que el USUARIO pueda tener acceso.</p>
                     </>
                 );
                 break;
@@ -63,61 +65,96 @@ const Footer = () => {
 
     return (
         <>
-            <footer className="footer">
-                <div className="footer__background-text">IMPACT</div>
+            <footer className="py-16 bg-[#050505] relative overflow-hidden">
+                {/* Top amber accent line */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#FFB800]/50 to-transparent" />
 
-                <div className="footer__container container">
-                    <div className="footer__grid">
-                        <div className="footer__logo-section">
-                            <img
-                                src={logoFull}
+                {/* Ambient background text */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+                    <span className="text-[20vw] font-black tracking-tighter leading-none"
+                        style={{ color: 'rgba(255, 184, 0, 0.03)' }}
+                    >IMPACT</span>
+                </div>
+
+                {/* Small amber glow */}
+                <div className="absolute top-0 right-1/4 w-[300px] h-[300px] rounded-full blur-[120px] opacity-10"
+                    style={{ background: 'radial-gradient(circle, #FFB800 0%, transparent 70%)' }}
+                />
+
+                <div className="container relative z-10">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                        {/* Logo & Description */}
+                        <div>
+                            <Image
+                                src="/images/logo-full.png"
                                 alt="Impact Channel"
-                                className="footer__logo-img"
+                                width={120}
+                                height={48}
+                                className="h-10 w-auto object-contain mb-4"
                             />
-                            <p className="footer__copy-text">
+                            <p className="text-[#666] text-sm leading-relaxed max-w-xs">
                                 Especialistas en Retail & Trade Marketing. Llevamos tu marca al siguiente nivel.
                             </p>
                         </div>
 
-                        <div className="footer__column">
-                            <h4 className="footer__column-title">Secciones</h4>
-                            <ul className="footer__links">
-                                <li><button onClick={() => scrollToSection('inicio')} className="footer__link">Inicio</button></li>
-                                <li><button onClick={() => { window.location.href = '/services'; }} className="footer__link">Servicios</button></li>
-                                <li><button onClick={() => { window.location.href = '/know-how'; }} className="footer__link">Know-How</button></li>
-                                <li><button onClick={() => scrollToSection('contacto')} className="footer__link">Contacto</button></li>
+                        {/* Navigation */}
+                        <div>
+                            <h4 className="text-xs font-bold text-[#FFB800] uppercase tracking-[0.15em] mb-4">Secciones</h4>
+                            <ul className="space-y-3">
+                                {['Inicio', 'Servicios', 'Know-How', 'Contacto'].map((item) => (
+                                    <li key={item}>
+                                        <button
+                                            onClick={() => {
+                                                if (item === 'Servicios') window.location.href = '/services';
+                                                else if (item === 'Know-How') window.location.href = '/know-how';
+                                                else scrollToSection(item.toLowerCase());
+                                            }}
+                                            className="text-[#888] hover:text-[#FFB800] transition-colors text-sm"
+                                        >
+                                            {item}
+                                        </button>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
 
-                        <div className="footer__column">
-                            <h4 className="footer__column-title">Contacto</h4>
-                            <div className="footer__contact-info">
-                                <div className="footer__contact-item">
-                                    <span className="footer__contact-label">DIRECCIÓN</span>
-                                    Av. Fuente Nueva, 14, Nave 19A<br />
-                                    28703 San Sebastián de los Reyes<br />
-                                    Madrid, España
+                        {/* Contact */}
+                        <div>
+                            <h4 className="text-xs font-bold text-[#FFB800] uppercase tracking-[0.15em] mb-4">Contacto</h4>
+                            <div className="space-y-4">
+                                <div className="flex items-start gap-3">
+                                    <MapPin className="w-4 h-4 text-[#FFB800] mt-0.5 shrink-0" />
+                                    <p className="text-[#888] text-sm leading-relaxed">
+                                        {siteConfig.contact.address.street}<br />
+                                        {siteConfig.contact.address.postalCode} {siteConfig.contact.address.city}<br />
+                                        {siteConfig.contact.address.province}, {siteConfig.contact.address.country}
+                                    </p>
                                 </div>
-                                <div className="footer__contact-item">
-                                    <span className="footer__contact-label">TELÉFONO</span>
-                                    <a href="tel:+34918053400" className="footer__link">(+34) 91 805 34 00</a>
+                                <div className="flex items-center gap-3">
+                                    <Phone className="w-4 h-4 text-[#FFB800] shrink-0" />
+                                    <a href={siteConfig.contact.phoneHref} className="text-[#888] hover:text-[#FFB800] transition-colors text-sm">
+                                        {siteConfig.contact.phone}
+                                    </a>
                                 </div>
-                                <div className="footer__contact-item">
-                                    <span className="footer__contact-label">EMAIL</span>
-                                    <a href="mailto:info@impactchannel.es" className="footer__link">info@impactchannel.es</a>
+                                <div className="flex items-center gap-3">
+                                    <Mail className="w-4 h-4 text-[#FFB800] shrink-0" />
+                                    <a href={`mailto:${siteConfig.contact.email}`} className="text-[#888] hover:text-[#FFB800] transition-colors text-sm">
+                                        {siteConfig.contact.email}
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="footer__bottom-bar">
-                        <div className="footer__copyright">
+                    {/* Bottom Bar */}
+                    <div className="pt-8 border-t border-[#FFB800]/10 flex flex-col md:flex-row items-center justify-between gap-4">
+                        <p className="text-xs text-[#555]">
                             &copy; {new Date().getFullYear()} Impact Channel. Todos los derechos reservados.
-                        </div>
-                        <div className="footer__legal-links">
-                            <button onClick={() => openLegal('legal')} className="footer__legal-link">Aviso Legal</button>
-                            <button onClick={() => openLegal('privacy')} className="footer__legal-link">Política de Privacidad</button>
-                            <button onClick={() => openLegal('cookies')} className="footer__legal-link">Cookies</button>
+                        </p>
+                        <div className="flex items-center gap-6">
+                            <button onClick={() => openLegal('legal')} className="text-xs text-[#555] hover:text-[#FFB800] transition-colors">Aviso Legal</button>
+                            <button onClick={() => openLegal('privacy')} className="text-xs text-[#555] hover:text-[#FFB800] transition-colors">Política de Privacidad</button>
+                            <button onClick={() => openLegal('cookies')} className="text-xs text-[#555] hover:text-[#FFB800] transition-colors">Cookies</button>
                         </div>
                     </div>
                 </div>

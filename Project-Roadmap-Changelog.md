@@ -11,6 +11,12 @@
 - **Visual Bug en Footer:** Corregido un error de renderizado en la etiqueta de "Teléfono" y unificado el estilo de etiquetas de contacto a mayúsculas para mayor consistencia.
 - **Refinamiento en Contacto:** Añadido separador visual minimalista ("Encuéntranos") y mejorado el espaciado (aire) entre el formulario y el mapa para una mejor jerarquía visual.
 
+### 📋 Planeado / En Revisión (V1.4)
+- **Optimización Móvil Total:** Revisión profunda de toda la web para garantizar que la experiencia sea fluida en cualquier dispositivo.
+- **Menú Móvil Pro:** Optimización de la interactividad y animaciones del menú lateral.
+- **Ajuste de Espaciados:** Revisión de paddings y márgenes para mejorar la jerarquía en pantallas pequeñas.
+- **Velocidades de Carga:** Continuar optimizando el bundle y los assets para reducir milisegundos críticos de carga.
+
 ## [1.3.0] - 2026-02-10
 ### Añadido (Added)
 - **Rediseño Premium de la Página de Contacto:** Nueva interfaz visual con animaciones de entrada (`fade-in`, `stagger`), tipografía de gran formato y diseño limpio.

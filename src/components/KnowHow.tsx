@@ -1,5 +1,6 @@
+'use client';
 import { useRef, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Timeline } from './ui/timeline';
 import './KnowHow.css';
@@ -270,7 +271,7 @@ const timelineData = [
 ];
 
 const KnowHow = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
 
     // Counters will animate on scroll
     const clients = useCountUp(50, 2000);
@@ -402,7 +403,7 @@ const KnowHow = () => {
                         Cuéntanos qué necesitas y te proponemos la mejor solución. Sin compromiso.
                     </p>
                     <button
-                        onClick={() => { navigate('/contact'); window.scrollTo(0, 0); }}
+                        onClick={() => { router.push('/contact'); window.scrollTo(0, 0); }}
                         className="btn btn-primary"
                     >
                         Pedir Presupuesto

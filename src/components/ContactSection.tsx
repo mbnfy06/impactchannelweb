@@ -1,5 +1,7 @@
+'use client';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { siteConfig } from '@/config/site';
 // import './ContactSection.css'; // Deprecated in favor of Tailwind
 
 const ContactSection = () => {
@@ -114,8 +116,8 @@ const ContactSection = () => {
                                 </div>
                                 <div>
                                     <h4 className="text-lg font-semibold text-neutral-900 mb-1">Llámanos</h4>
-                                    <a href="tel:+34918053400" className="text-neutral-600 hover:text-yellow-600 transition-colors text-lg block">
-                                        +34 91 805 34 00
+                                    <a href={siteConfig.contact.phoneHref} className="text-neutral-600 hover:text-yellow-600 transition-colors text-lg block">
+                                        {siteConfig.contact.phone}
                                     </a>
                                     <span className="text-sm text-neutral-400 mt-1 block">Lunes a Viernes, 9:00 - 18:00</span>
                                 </div>
@@ -127,8 +129,8 @@ const ContactSection = () => {
                                 </div>
                                 <div>
                                     <h4 className="text-lg font-semibold text-neutral-900 mb-1">Escríbenos</h4>
-                                    <a href="mailto:info@impactchannel.es" className="text-neutral-600 hover:text-yellow-600 transition-colors text-lg block">
-                                        info@impactchannel.es
+                                    <a href={`mailto:${siteConfig.contact.email}`} className="text-neutral-600 hover:text-yellow-600 transition-colors text-lg block">
+                                        {siteConfig.contact.email}
                                     </a>
                                     <span className="text-sm text-neutral-400 mt-1 block">Respondemos en menos de 24h</span>
                                 </div>
@@ -141,9 +143,9 @@ const ContactSection = () => {
                                 <div>
                                     <h4 className="text-lg font-semibold text-neutral-900 mb-1">Visítanos</h4>
                                     <p className="text-neutral-600 text-lg leading-relaxed">
-                                        Av. Fuente Nueva, 14, Nave 19A<br />
-                                        28703 San Sebastián de los Reyes<br />
-                                        Madrid, España
+                                        {siteConfig.contact.address.street}<br />
+                                        {siteConfig.contact.address.postalCode} {siteConfig.contact.address.city}<br />
+                                        {siteConfig.contact.address.province}, {siteConfig.contact.address.country}
                                     </p>
                                 </div>
                             </div>

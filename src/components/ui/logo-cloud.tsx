@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { InfiniteSlider } from "./infinite-slider";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 type Logo = {
     src: string;
